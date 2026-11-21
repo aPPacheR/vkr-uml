@@ -1,0 +1,18 @@
+@startuml
+actor "Читатель" as R
+participant "Экран приложения" as UI
+participant "Сервис бронирования" as S
+participant "АБИС" as A
+R -> UI: Нажать «Забронировать»
+UI -> S: reserve(bookId, branchId)
+S -> A: Запрос брони
+alt экземпляр свободен
+  A --> S: Бронь подтверждена
+  S --> UI: Успех
+  UI --> R: «Книга забронирована»
+else экземпляр занят
+  A --> S: Отказ
+  S --> UI: Ошибка
+  UI --> R: Предложить другой филиал
+end
+@enduml

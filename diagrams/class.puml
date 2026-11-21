@@ -1,0 +1,38 @@
+@startuml
+class Reader {
+  - id: Int
+  - fullName: String
+  - cardNumber: String
+  + reserve(book: Book): Reservation
+  + renew(loan: Loan)
+}
+class Book {
+  - id: Int
+  - title: String
+  - author: String
+}
+class BookCopy {
+  - id: Int
+  - isAvailable: Boolean
+}
+class Branch {
+  - id: Int
+  - name: String
+  - address: String
+}
+class Reservation {
+  - id: Int
+  - status: String
+  + cancel()
+}
+class Loan {
+  - id: Int
+  - dueDate: String
+}
+Book "1" *-- "*" BookCopy
+Branch "1" o-- "*" BookCopy
+Reader "1" --> "*" Reservation
+Reader "1" --> "*" Loan
+Reservation "*" --> "1" BookCopy
+Loan "*" --> "1" BookCopy
+@enduml

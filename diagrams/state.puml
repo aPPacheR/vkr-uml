@@ -1,0 +1,18 @@
+@startuml
+state "Создана" as Created
+state "Ожидает выдачи" as Waiting
+state "Выдана" as Issued
+state "Возвращена" as Returned
+state "Отменена" as Cancelled
+state "Истекла" as Expired
+[*] --> Created
+Created --> Waiting : Подтверждение АБИС
+Created --> Cancelled : Отмена читателем
+Waiting --> Issued : Выдача книги
+Waiting --> Expired : Срок брони вышел
+Waiting --> Cancelled : Отмена читателем
+Issued --> Returned : Возврат книги
+Returned --> [*]
+Cancelled --> [*]
+Expired --> [*]
+@enduml

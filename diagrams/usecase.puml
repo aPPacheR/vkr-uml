@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+actor "Читатель" as R
+actor "АБИС (внешняя система)" as A
+rectangle "Приложение ЦБС" {
+  usecase "Найти книгу" as UC1
+  usecase "Забронировать книгу" as UC2
+  usecase "Продлить срок" as UC3
+  usecase "Записаться на мероприятие" as UC4
+}
+R --> UC1
+R --> UC2
+R --> UC3
+R --> UC4
+UC2 ..> UC1 : <<include>>
+UC2 --> A
+UC3 --> A
+@enduml
